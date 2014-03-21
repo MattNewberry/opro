@@ -8,7 +8,8 @@ module Opro
       end
 
       def login_method(current_user)
-        controller.sign_in(current_user, :bypass => true)
+        has_auth = controller.request.env.has_key?('HTTP_AUTHORIZATION')
+        controller.sign_in(current_user, :bypass => !has_auth)
       end
 
       def logout_method(current_user)
